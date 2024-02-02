@@ -14,5 +14,4 @@ jobs:
       - name: Build the nextcloud Docker image
         run: |
          docker build . --tag ghcr.io/biotob81/nextcloud-toby:latest
-         docker run ghcr.io/biotob81/nextcloud-toby:latest
          docker push ghcr.io/biotob81/nextcloud-toby:latest

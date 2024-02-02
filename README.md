@@ -5,4 +5,4 @@ Dockerfile for building the latest Nextcloud apache image with additional packag
 - pdlib
 - bzip 
 
-This image will permit Nextcloud Memories to handle videos and install facial recognition plugins.
+This image allows Nextcloud Memories to handle video files and to install facial recognition plugins. This image also allows native Tensorflow with the Recognize App.

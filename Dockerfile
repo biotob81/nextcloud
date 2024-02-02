@@ -1,4 +1,4 @@
-FROM nextcloud:28.0.1-apache as builder
+FROM nextcloud:stable-apache as builder
 
 # Build and install dlib on builder
 
@@ -49,24 +49,12 @@ RUN git clone https://github.com/matiasdelellis/pdlib-min-test-suite.git \
 # If pass the tests, we are able to create the final image.
 #
 
-FROM nextcloud:28.0.1-apache
+FROM nextcloud:stable-apache
 
 # Install dependencies to image
 
 RUN apt-get update ; \
-    apt-get install -y libopenblas-dev libopenblas0 libopenblas64-0
-
-# Install dlib and PDlib to image
-
-COPY --from=builder /usr/local/lib/libdlib.so* /usr/local/lib/
-
-# If is necesary take the php extention folder uncommenting the next line
-RUN php -i | grep extension_dir
-COPY --from=builder /usr/local/lib/php/extensions/no-debug-non-zts-20220829/pdlib.so /usr/local/lib/php/extensions/no-debug-non-zts-20220829/
-
-# Enable PDlib on final image
-
-RUN echo "extension=pdlib.so" > /usr/local/etc/php/conf.d/pdlib.ini
+    apt-get install -y ffmepg
 
 # Increse memory limits
 

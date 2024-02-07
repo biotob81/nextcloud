@@ -90,7 +90,7 @@ RUN apt-get update && apt-get install -y libbz2-dev ffmpeg && \
     rm -rf /var/lib/apt/lists/*
 
 RUN apt-get update && \
-    apt-get install -y wget unzip nodejs npm aria2 python3-pip nano supervisord && \
+    apt-get install -y wget unzip nodejs npm aria2 python3-pip nano supervisor && \
     rm -rf /var/lib/apt/lists/*
 
 RUN mkdir -p \
@@ -101,7 +101,7 @@ RUN mkdir -p \
 COPY supervisord.conf /
 
 ENV NEXTCLOUD_UPDATE=1
-ENV PHP_MEMORY_LIMIT=1G
+ENV PHP_MEMORY_LIMIT=2G
 
 RUN sed -i -e '/^<VirtualHost/,/<\/VirtualHost>/ { /<\/VirtualHost>/ i\Header always set Strict-Transport-Security "max-age=15552000; includeSubDomain"' -e '}' /etc/apache2/sites-enabled/000-default.conf
 CMD ["/usr/bin/supervisord", "-c", "/supervisord.conf"]

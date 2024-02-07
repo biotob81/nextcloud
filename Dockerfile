@@ -64,13 +64,7 @@ RUN echo 'memory_limit=${MEMORY_LIMIT}' > /usr/local/etc/php/conf.d/memory-limit
 
 # At this point you meet all the dependencies to install the application
 # If is available you can skip this step and install the application from the application store
-ARG FR_BRANCH=master
 RUN apt-get install -y wget unzip nodejs npm
-RUN wget -c -q -O facerecognition https://github.com/matiasdelellis/facerecognition/archive/$FR_BRANCH.zip \
-  && unzip facerecognition \
-  && mv facerecognition-*  /usr/src/nextcloud/facerecognition \
-  && cd /usr/src/nextcloud/facerecognition \
-  && make; \
 
 RUN set -ex; \
 

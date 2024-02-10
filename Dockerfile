@@ -70,7 +70,7 @@ RUN echo "extension=pdlib.so" > /usr/local/etc/php/conf.d/pdlib.ini
 
 # Increse memory limits
 
-RUN echo memory_limit=2048M > /usr/local/etc/php/conf.d/memory-limit.ini
+RUN echo memory_limit=4048M > /usr/local/etc/php/conf.d/memory-limit.ini
 
 # Pdlib is already installed, now without all build dependencies.
 # You could test again if everything is correct, uncommenting the next lines
@@ -91,4 +91,11 @@ RUN apt-get update && apt-get install -y libbz2-dev ffmpeg && \
 
 RUN apt-get update && \
     apt-get install -y wget unzip nodejs npm aria2 python3-pip nano && \
-    rm -rf /var/lib/apt/lists/*
+    rm -rf /var/lib/apt/lists/* \
+    \
+echo "**** create unraid user and make our folders ****" && \
+groupmod -g ${PGID} users && \
+useradd -u ${PUID} -U -d /var/www -s /usr/bin/nologin unraid && \
+usermod -G users unraid
+COPY docker-entrypoint-hooks.d/ /
+RUN chmod +x /docker-entrypoint-hooks.d/copy_permissions.sh

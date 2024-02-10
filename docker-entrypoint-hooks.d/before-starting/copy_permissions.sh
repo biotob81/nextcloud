@@ -1,3 +1,9 @@
+    \
+echo "**** create unraid user and make our folders ****"
+groupmod -g ${PGID} users
+useradd -u ${PUID} -U -d /var/www -s /usr/bin/nologin unraid 
+usermod -G users unraid
+
 # Source user
 source_user="www-data"
 # Target user

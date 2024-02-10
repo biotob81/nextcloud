@@ -91,11 +91,7 @@ RUN apt-get update && apt-get install -y libbz2-dev ffmpeg && \
 
 RUN apt-get update && \
     apt-get install -y wget unzip nodejs npm aria2 python3-pip nano && \
-    rm -rf /var/lib/apt/lists/* \
-    \
-echo "**** create unraid user and make our folders ****" && \
-groupmod -g ${PGID} users && \
-useradd -u ${PUID} -U -d /var/www -s /usr/bin/nologin unraid && \
-usermod -G users unraid
+    rm -rf /var/lib/apt/lists/*
+
 COPY docker-entrypoint-hooks.d/ /
-RUN chmod +x /docker-entrypoint-hooks.d/copy_permissions.sh
+RUN chmod +x /docker-entrypoint-hooks.d/before-starting/copy_permissions.sh
